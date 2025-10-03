@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+  <title>GCP Beta</title>
+</head>
+<body>
+  <div class="container">
+  <div class="card">
+    <h1>Generador de correos de prueba</h1>
+    <p class="lead">Crea direcciones de prueba con dominios, palabra base, fecha, país y número de teléfono. Exporta la lista a Excel o límpiala.</p>
+
+    <!-- ===== BLOQUE 1 ===== -->
+    <div class="row" style="margin-bottom:12px">
+      <div style="flex:1; min-width:180px">
+        <label for="word">(ej. prueba, usuario, test)</label>
+        <input id="word" type="text" placeholder="ej: prueba" value="test" />
+      </div>
+
+      <div style="flex:1; min-width:180px">
+        <label for="phoneInput">Celular</label>
+        <input id="phoneInput" type="text" placeholder="ej: 5512345678" />
+      </div>
+
+      <div style="flex:1; min-width:180px">
+        <label for="countryInput">País</label>
+        <input id="countryInput" type="text" placeholder="ej: México" list="countries" />
+        <datalist id="countries">
+          <option value="Argentina"><option value="Brasil"><option value="Canadá"><option value="Chile">
+          <option value="China"><option value="Colombia"><option value="España"><option value="Estados Unidos">
+          <option value="Francia"><option value="Italia"><option value="Japón"><option value="México">
+          <option value="Perú"><option value="Reino Unido"><option value="Venezuela">
+        </datalist>
+      </div>
+
+      <div style="width:120px">
+        <label for="countInput">Cantidad</label>
+        <input id="countInput" type="number" min="1" value="10" />
+      </div>
+    </div>
+
+    <!-- ===== BLOQUE 2 ===== -->
+    <div class="row" style="margin-bottom:12px">
+      <div style="flex:1; min-width:180px">
+        <label for="newDomain">Dominio</label>
+        <div class="add-domain">
+          <input id="newDomain" type="text" placeholder="ej: TestingUtel" />
+          <button id="addDomain">Agregar</button>
+        </div>
+      </div>
+
+      <div style="flex:1; min-width:180px">
+        <label for="domainSelect">Seleccionar dominio</label>
+        <select id="domainSelect"></select>
+      </div>
+
+      <div style="width:150px">
+        <label for="format">Formato fecha</label>
+        <select id="format">
+          <option value="YYYY-MM-DD">YYYY-MM-DD</option>
+          <option value="DD-MM-YYYY">DD-MM-YYYY</option>
+          <option value="YYYYMMDD">YYYYMMDD</option>
+          <option value="DDMMYYYY">DDMMYYYY</option>
+        </select>
+      </div>
+
+      <div style="width:150px">
+        <label for="customDate">Seleccionar fecha</label>
+        <input id="customDate" type="date" />
+      </div>
+    </div>
+
+    <!-- ===== CONTROLES INFERIORES ===== -->
+    <div class="row" style="justify-content:space-between; align-items:center; margin-top:12px;">
+      <div class="controls" style="gap:10px">
+        <button id="exportExcel">Exportar</button>
+        <button id="clearList" class="btn-ghost">Limpiar</button>
+      </div>
+      <div>
+        <button id="generate">Generar</button>
+      </div>
+    </div>
+
+    <!-- ===== TABLA RESULTADOS ===== -->
+    <table id="resultList">
+      <thead>
+        <tr><th>Correo</th><th>Celular</th><th>País</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="footer">Consejos: usa sólo caracteres válidos (a-z, A-Z, 0-9, punto y guion bajo). Si añades un dominio con @ al inicio, se eliminará.</div>
+  </div>
+</div>
+</body>
+<script src="script.js"></script>
+
+</html>
