@@ -6,6 +6,15 @@
   color-scheme:dark;
 }
 
+body.light-mode {
+  --bg: #f0f4ff;
+  --card: #ffffff;
+  --accent: #0066cc;
+  --muted: #6b7280;
+  color-scheme: light; /* cambia el esquema solo aquí */
+}
+
+
 body {
   font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
   margin:0;
@@ -82,6 +91,21 @@ button {
   box-sizing:border-box;
 }
 
+.btn-clear {
+
+background:#d40000fa;
+ color:rgb(255, 255, 255);
+
+}
+
+.btn-export {
+
+background:#217346;
+ color:rgb(255, 255, 255);
+
+}
+
+
 .muted { color:var(--muted); font-size:13px; }
 
 .controls {
@@ -152,4 +176,105 @@ th { color:var(--accent); }
   h1 { font-size:18px; }
   .controls { flex-direction:column; gap:6px; }
   input, select, button { font-size:14px; }
+}
+
+
+
+
+
+
+
+/* 08.10.2025 */
+
+
+
+/* ==== BOTÓN MODO OSCURO/CLARO ==== */
+.theme-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+}
+
+/* Asegura que la card tenga posición relativa */
+.card {
+  position: relative;
+}
+
+/* From Uiverse.io by santosh-sarkar */
+.toggle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  /* background: rgba(255,255,255,0.08); */
+  transition: background 0.3s ease;
+}
+.toggle:hover {
+  /* background: rgba(255,255,255,0.15); */
+}
+.input {
+  display: none;
+}
+.icon {
+  grid-column: 1 / 1;
+  grid-row: 1 / 1;
+  transition: transform 500ms;
+  line-height: 0;
+}
+.icon--moon {
+  transition-delay: 200ms;
+  color: #b4b4b4;
+}
+.icon--sun {
+  transform: scale(0);
+  color: #ffa500;
+}
+#switch:checked + .icon--moon {
+  transform: rotate(360deg) scale(0);
+}
+#switch:checked ~ .icon--sun {
+  transition-delay: 200ms;
+  transform: scale(1) rotate(360deg);
+}
+
+/* ==== MODO CLARO (CORREGIDO) ==== */
+body.light-mode {
+  background: linear-gradient(288deg, #f0f4ff 0%, #d6e0ff 100%);
+  color: #0a0a0a;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body.light-mode .card {
+  background: #ffffff;
+  color: #0a0a0a;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+body.light-mode input,
+body.light-mode select {
+  border-color: #c7c7c7;
+  color: #000;
+  background: #fff;
+}
+
+body.light-mode label {
+  color: #333;
+}
+
+body.light-mode th {
+  color: #0066cc;
+}
+
+body.light-mode .footer {
+  color: #555;
+}
+
+body.light-mode th,
+body.light-mode td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.445);
+  
 }
