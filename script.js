@@ -14,15 +14,31 @@ function generarNombreCompleto() {
 }
 
 function sanitizeDomain(d){
-    if(!d) return '';
-    d = d.trim();
-    d = d.replace(/^@+/, '');
-    if(!/\.[a-zA-Z]{2,}$/.test(d)) d += '.com';
-    return d; 
+  if(!d) return '';
+  d = d.trim();
+  d = d.replace(/^@+/, '');
+  if(!/\.[a-zA-Z]{2,}$/.test(d)) d += '.com';
+  return d; 
 }
 
 function sanitizeWord(w){if(!w) return 'test'; return w.trim().replace(/[^a-zA-Z0-9._-]/g,'_');}
-function formatDate(date,fmt){const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0'); switch(fmt){case 'YYYY-MM-DD':return `${y}-${m}-${d}`; case 'DD-MM-YYYY':return `${d}-${m}-${y}`; case 'YYYYMMDD':return `${y}${m}${d}`; case 'DDMMYYYY':return `${d}${m}${y}`; default:return `${y}-${m}-${d}`;}}
+
+function formatDate(date, fmt) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+
+  switch (fmt) {
+    case 'DD-MM-YYYY':
+      return `${d}-${m}-${y}`;
+    case 'MM-DD-YYYY':
+      return `${m}-${d}-${y}`;
+    case 'YYYY-MM-DD':
+      return `${y}-${m}-${d}`; // antes sin separadores
+    default:
+      return `${y}-${m}-${d}`;
+  }
+}
 
 const domainSelect=document.getElementById('domainSelect');
 const wordInput=document.getElementById('word');
@@ -65,16 +81,26 @@ function addDomain(){
   loadDomains();
 }
 
-function makeEmail(word,domain,fmt,customDate,index=0,country='',phone=''){
-  const cleanWord=sanitizeWord(word);
-  const date=customDate?formatDate(new Date(customDate),fmt):formatDate(new Date(),fmt);
-  let phoneSuffix='';
-  if(phone){
-    const numStr=phone.replace(/\D/g,'');
-    const lastTwo=(index%100).toString().padStart(2,'0');
-    phoneSuffix=numStr.slice(0,-2)+lastTwo;
+// === MODIFICADA: genera últimos dígitos aleatorios únicos ===
+function makeEmail(word, domain, fmt, customDate, index = 0, country = '', phone = '', usedNumbers = new Set()) {
+  const cleanWord = sanitizeWord(word);
+  const date = customDate ? formatDate(new Date(customDate), fmt) : formatDate(new Date(), fmt);
+  let phoneSuffix = '';
+
+  if (phone) {
+    const numStr = phone.replace(/\D/g, '');
+    let lastTwo;
+
+    // Generar número aleatorio único de 2 dígitos (00-99)
+    do {
+      lastTwo = Math.floor(Math.random() * 100).toString().padStart(2, '0');
+    } while (usedNumbers.has(lastTwo));
+    usedNumbers.add(lastTwo);
+
+    phoneSuffix = numStr.slice(0, -2) + lastTwo;
   }
-  return {email:`${cleanWord}.${index+1}-${date}@${domain}`,phone:phoneSuffix,country};
+
+  return { email: `${cleanWord}.${index + 1}-${date}@${domain}`, phone: phoneSuffix, country };
 }
 
 // === MODIFICADO: render incluye columna "Nombre" ===
@@ -115,15 +141,16 @@ generateBtn.addEventListener('click',()=>{
   const country=countryInput.value.trim();
   const phone=phoneInput.value.trim();
 
-  // Si ya existen datos para esta palabra, no los modificamos
   if(!generatedByWord[word]){
     const newEmails=[];
+    const usedNumbers = new Set(); // <- evitar dígitos repetidos
+
     for(let i=0;i<count;i++){
-      const emailObj=makeEmail(word,domain,fmt,customDate,i,country,phone);
-      // Genera nombre solo la primera vez
+      const emailObj=makeEmail(word,domain,fmt,customDate,i,country,phone,usedNumbers);
       emailObj.name = generarNombreCompleto();
       newEmails.push(emailObj);
     }
+
     generatedByWord[word]=newEmails;
     orderList.push(word);
   }
@@ -137,62 +164,47 @@ clearListBtn.addEventListener('click',()=>{
   resultList.style.display='none';
 });
 
-exportExcelBtn.addEventListener('click',()=>{
-  if(orderList.length===0) return alert('No hay datos para exportar.');
+exportExcelBtn.addEventListener('click', () => {
+  if (orderList.length === 0) return alert('No hay datos para exportar.');
 
-  let csv='\uFEFFCorreo;Nombre;Celular;País\n'; 
-
-  orderList.forEach(word=>{
-    const list=generatedByWord[word]||[];
-    list.forEach(item=>{
-      const email=`"${item.email.replace(/"/g,'""')}"`;
-      const name=`"${item.name.replace(/"/g,'""')}"`;
-      const phone=`"${item.phone.replace(/"/g,'""')}"`;
-      const country=`"${item.country.replace(/"/g,'""')}"`;
-      csv+=`${email};${name};${phone};${country}\n`;
+  const data = [];
+  orderList.forEach(word => {
+    const list = generatedByWord[word] || [];
+    list.forEach(item => {
+      data.push({
+        "Correo": item.email,
+        "Nombre": item.name,
+        "Celular": item.phone,
+        "País": item.country
+      });
     });
   });
 
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement('a');
-  a.href=url;
-  a.download='correos_generados.csv';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  URL.revokeObjectURL(url);
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, "Correos Generados");
+  XLSX.writeFile(wb, "correos_generados.xlsx");
 });
 
 loadDomains();
-
-// permite agregar dominio con el boton y con Enter
 addDomainBtn.addEventListener('click',addDomain);
 newDomainInput.addEventListener('keypress',(e)=>{if(e.key==='Enter') addDomain();});
 
-// guarda el formato de fecha selecionado
 function loadFormat(){
   const savedFormat=localStorage.getItem(STORAGE_KEYS.format);
   if(savedFormat) formatSelect.value=savedFormat;
 }
 formatSelect.addEventListener('change',()=>{localStorage.setItem(STORAGE_KEYS.format,formatSelect.value);});
 
-// limpia el input de palabra al cargar la página
 window.addEventListener('DOMContentLoaded',()=>{wordInput.value='';});
-
 loadFormat();
-
 
 // === TOGGLE MODO OSCURO/CLARO ===
 const themeSwitch = document.getElementById('switch');
-
-// Cargar preferencia guardada
 if (localStorage.getItem('theme') === 'light') {
   document.body.classList.add('light-mode');
   themeSwitch.checked = true;
 }
-
-// Escuchar cambios
 themeSwitch.addEventListener('change', () => {
   if (themeSwitch.checked) {
     document.body.classList.add('light-mode');
