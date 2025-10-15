@@ -121,6 +121,52 @@
     <div class="footer">Consejos: usa sólo caracteres válidos (a-z, A-Z, 0-9, punto y guion bajo). Si añades un dominio con @ al inicio, se eliminará.</div>
   </div>
 </div>
+
+
+  <!-- 🔘 BOTÓN FLOTANTE -->
+<button id="openModal" class="floating-btn" aria-label="Abrir lista">
+  <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 36 36" fill="currentColor">
+    <circle cx="20.75" cy="6" r="4" class="clr-i-solid clr-i-solid-path-1"/>
+    <path d="M24.84 26.23a1 1 0 0 0-1.4.29a16.6 16.6 0 0 1-3.51 3.77c-.33.25-1.56 1.2-2.08 1c-.36-.11-.15-.82-.08-1.12l.53-1.57c.22-.64 4.05-12 4.47-13.3c.62-1.9.35-3.77-2.48-3.32c-.77.08-8.58 1.09-8.72 1.1a1 1 0 0 0 .13 2s3-.39 3.33-.42a.88.88 0 0 1 .85.44a2.47 2.47 0 0 1-.07 1.71c-.26 1-4.37 12.58-4.5 13.25a2.78 2.78 0 0 0 1.18 3a5 5 0 0 0 3.08.83a8.5 8.5 0 0 0 3.09-.62c2.49-1 5.09-3.66 6.46-5.75a1 1 0 0 0-.28-1.29" class="clr-i-solid clr-i-solid-path-2"/>
+    <path fill="none" d="M0 0h36v36H0z"/>
+  </svg>
+</button>
+
+  <!-- 🔲 MODAL CON TABLA -->
+  <div id="countryModal" class="modal">
+    <div class="modal-content">
+      <span id="closeModal" class="close">&times;</span>
+      <h2>Numeros Funcionales</h2>
+      <table class="country-table">
+        <thead>
+          <tr>
+            <th>País</th>
+            <th>Celular</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>México</td><td>961 767 8588</td></tr>
+          <tr><td>Colombia</td><td>310 767 8577</td></tr>
+          <tr><td>Perú</td><td>915 969 505</td></tr>
+          <tr><td>Ecuador</td><td>967 678 598</td></tr>
+          <tr><td>Panamá</td><td>660 284 49</td></tr>
+          <tr><td>Rep. Dominicana</td><td>809 883 2711</td></tr>
+          <tr><td>Chile</td><td>987 654 314</td></tr>
+          <tr><td>Argentina</td><td>294 546 7064</td></tr>
+          <tr><td>USA</td><td>212 555 0175</td></tr>
+          <tr><td>Bolivia</td><td>762 930 59</td></tr>
+          <tr><td>Guatemala</td><td>375 231 90</td></tr>
+          <tr><td>El Salvador</td><td>778 742 82</td></tr>
+          <tr><td>Paraguay</td><td>982 568 091</td></tr>
+          <tr><td>Filipinas</td><td>961 767 8588</td></tr>
+          <tr><td>Indonesia</td><td>961 767 8588</td></tr>
+          <tr><td>Vietnam</td><td>961 767 8588</td></tr>
+          <tr><td>India</td><td>961 767 8588</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
 </body>
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 <script src="script.js"></script>
