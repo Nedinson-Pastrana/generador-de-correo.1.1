@@ -1,3 +1,59 @@
+Notiflix.Report.init({
+className: 'notiflix-report',
+width: '320px',
+backgroundColor: '#f8f8f8',
+borderRadius: '25px',
+rtl: false,
+zindex: 4002,
+backOverlay: true,
+backOverlayColor: 'rgba(0,0,0,0.5)',
+backOverlayClickToClose: false,
+fontFamily: 'Quicksand',
+svgSize: '110px',
+plainText: true,
+titleFontSize: '16px',
+titleMaxLength: 34,
+messageFontSize: '13px',
+messageMaxLength: 400,
+buttonFontSize: '14px',
+buttonMaxLength: 34,
+cssAnimation: true,
+cssAnimationDuration: 360,
+cssAnimationStyle: 'fade',
+success: {
+svgColor: '#32c682',
+titleColor: '#1e1e1e',
+messageColor: '#242424',
+buttonBackground: '#32c682',
+buttonColor: '#fff',
+backOverlayColor: 'rgba(50,198,130,0.2)',
+},
+failure: {
+svgColor: '#3b14cac5',
+titleColor: '#1e1e1e',
+messageColor: '#242424',
+buttonBackground: '#3b14cac5',
+buttonColor: '#fff',
+backOverlayColor: 'rgba(0, 0, 0, 0.69)',
+},
+warning: {
+svgColor: '#eebf31',
+titleColor: '#1e1e1e',
+messageColor: '#242424',
+buttonBackground: '#eebf31',
+buttonColor: '#fff',
+backOverlayColor: 'rgba(238,191,49,0.2)',
+},
+info: {
+svgColor: '#3b14cac5',
+titleColor: '#1e1e1e',
+messageColor: '#242424',
+buttonBackground: '#3b14cac5',
+buttonColor: '#fff',
+backOverlayColor: 'rgba(0, 0, 0, 0.69)',
+},
+});
+
 const defaultDomains=['gmail.com'];
 const STORAGE_KEYS={domains:'testgen_domains',format:'testgen_format',count:'testgen_count'};
 let generatedByWord={};
@@ -73,7 +129,11 @@ function loadDomains(){
 function addDomain(){
   const raw=newDomainInput.value;
   const d=sanitizeDomain(raw);
-  if(!d) return alert('Introduce un dominio válido.');
+  if(!d) return Notiflix.Report.info(
+'Introduce un dominio',
+'Añade un dominio en el input',
+'OK',
+);
   const curr=JSON.parse(localStorage.getItem(STORAGE_KEYS.domains)||'[]');
   curr.unshift(d);
   localStorage.setItem(STORAGE_KEYS.domains,JSON.stringify(Array.from(new Set(curr))));
@@ -165,8 +225,11 @@ clearListBtn.addEventListener('click',()=>{
 });
 
 exportExcelBtn.addEventListener('click', () => {
-  if (orderList.length === 0) return alert('No hay datos para exportar.');
-
+  if (orderList.length === 0) return Notiflix.Report.failure(
+'No hay datos',
+'Selecciona datos que quieres ver y generalos',
+'OK',
+);
   const data = [];
   orderList.forEach(word => {
     const list = generatedByWord[word] || [];
@@ -226,6 +289,7 @@ closeBtn.onclick = () => modal.style.display = "none";
 window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
+
 
 
 
