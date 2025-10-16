@@ -311,7 +311,7 @@ body.light-mode td {
 }
 .floating-btn:hover {
   background: #252525;
-  transform: scale(0.7);
+  transform: scale(0.6);
 }
 
 /* ==== MODAL ==== */
@@ -441,4 +441,5 @@ body.light-mode .country-table td {
     font-size: 13px;
   }
 }
+
 
