@@ -59,10 +59,34 @@ const STORAGE_KEYS={domains:'testgen_domains',format:'testgen_format',count:'tes
 let generatedByWord={};
 let orderList=[];
 
-// === NUEVO: listas de nombres y apellidos ===
-const nombres = ["Carlos","María","Juan","Lucía","Pedro","Laura","Andrés","Camila","José","Valentina","David","Daniela","Felipe","Sara","Miguel","Paula"];
-const apellidos = ["Gómez","Rodríguez","Martínez","López","García","Pérez","Sánchez","Ramírez","Torres","Flores","Díaz","Vargas","Castro","Moreno","Jiménez","Rojas"];
+// === LISTAS AMPLIADAS ===
+const nombres = [
+  "Carlos","María","Juan","Lucía","Pedro","Laura","Andrés","Camila","José","Valentina",
+  "David","Daniela","Felipe","Sara","Miguel","Paula","Santiago","Isabela","Alejandro","Natalia",
+  "Julián","Fernanda","Ricardo","Adriana","Sebastián","Carolina","Manuel","Andrea","Tomás","Gabriela",
+  "Cristian","Juliana","Jorge","Verónica","Simón","Melissa","Diego","Rocío","Nicolás","Ángela",
+  "Samuel","Claudia","Esteban","Vanessa","Mauricio","Tatiana","Kevin","Diana","Emilio","Sofía",
+  "Mateo","Florencia","Elena","Pablo","Victoria","Martín","Mónica","Raúl","Patricia","Iván",
+  "Luciano","Olga","Leonardo","Teresa","Francisco","Elsa","Alan","Beatriz","Mario","Jimena",
+  "Rubén","Margarita","Óscar","Nadia","Cristóbal","Noelia","Rodrigo","Cecilia","Fabián","Lina",
+  "Germán","Gloria","Hugo","Susana","Eduardo","Clara","Bruno","Renata","Raquel","Omar",
+  "Álvaro","Milena","Lautaro","Nicole","Enrique","Eliana","Agustín","Carla","Joel","Tatiana"
+];
 
+const apellidos = [
+  "Gómez","Rodríguez","Martínez","López","García","Pérez","Sánchez","Ramírez","Torres","Flores",
+  "Díaz","Vargas","Castro","Moreno","Jiménez","Rojas","Hernández","Ortiz","Navarro","Cortés",
+  "Guerrero","Suárez","Mendoza","Reyes","Álvarez","Romero","Cabrera","Chávez","Salazar","Ortega",
+  "Mejía","Vega","Cardona","Campos","Peña","Pardo","Fuentes","Silva","León","Carrillo",
+  "Valencia","Camacho","Cárdenas","Mora","Rubio","Rincón","Bermúdez","Escobar","Blanco","Acosta",
+  "Herrera","Muñoz","Medina","Aguilar","Montoya","Calderón","Palacios","Nieto","Rivas","Zamora",
+  "Padilla","Cuellar","Delgado","Benítez","Maldonado","Ospina","Rivera","Serrano","Luna","Barrios",
+  "Reina","Ibáñez","Fajardo","Arango","Perdomo","Plata","Forero","Tovar","Giraldo","Osorio",
+  "Rosales","Bautista","Uribe","Rico","Murillo","Castaño","Pinto","Cruz","Quintero","Sandoval",
+  "Prieto","Núñez","Carvajal","Ruiz","Bonilla","Cifuentes","Patiño","Tapia","Camargo","Hoyos"
+];
+
+// === Generador de nombre completo ===
 function generarNombreCompleto() {
   const nombre = nombres[Math.floor(Math.random() * nombres.length)];
   const apellido = apellidos[Math.floor(Math.random() * apellidos.length)];
@@ -289,6 +313,7 @@ closeBtn.onclick = () => modal.style.display = "none";
 window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
+
 
 
 
