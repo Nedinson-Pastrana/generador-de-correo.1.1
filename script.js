@@ -86,18 +86,25 @@ const apellidos = [
   "Prieto","Núñez","Carvajal","Ruiz","Bonilla","Cifuentes","Patiño","Tapia","Camargo","Hoyos"
 ];
 
+// Función para barajar
 function shuffle(arr) {
   return arr.sort(() => Math.random() - 0.5);
 }
 
-const nombresBarajados = shuffle([...nombres]);
-const apellidosBarajados = shuffle([...apellidos]);
+// Copias barajadas
+let nombresBarajados = shuffle([...nombres]);
+let apellidosBarajados = shuffle([...apellidos]);
 
 let index = 0;
+const LIMITE = 100; // ← límite por ciclo
 
 function generarNombreCompleto() {
-  if (index >= nombresBarajados.length || index >= apellidosBarajados.length) {
-    return "No quedan nombres disponibles";
+
+  // Si llegamos al límite, reiniciamos
+  if (index >= LIMITE) {
+    index = 0;
+    nombresBarajados = shuffle([...nombres]);
+    apellidosBarajados = shuffle([...apellidos]);
   }
 
   const nombre = nombresBarajados[index];
@@ -327,6 +334,7 @@ closeBtn.onclick = () => modal.style.display = "none";
 window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
+
 
 
 
