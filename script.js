@@ -86,10 +86,24 @@ const apellidos = [
   "Prieto","Núñez","Carvajal","Ruiz","Bonilla","Cifuentes","Patiño","Tapia","Camargo","Hoyos"
 ];
 
-// === Generador de nombre completo ===
+function shuffle(arr) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+const nombresBarajados = shuffle([...nombres]);
+const apellidosBarajados = shuffle([...apellidos]);
+
+let index = 0;
+
 function generarNombreCompleto() {
-  const nombre = nombres[Math.floor(Math.random() * nombres.length)];
-  const apellido = apellidos[Math.floor(Math.random() * apellidos.length)];
+  if (index >= nombresBarajados.length || index >= apellidosBarajados.length) {
+    return "No quedan nombres disponibles";
+  }
+
+  const nombre = nombresBarajados[index];
+  const apellido = apellidosBarajados[index];
+  index++;
+
   return `${nombre} ${apellido}`;
 }
 
@@ -313,6 +327,7 @@ closeBtn.onclick = () => modal.style.display = "none";
 window.onclick = (e) => {
   if (e.target === modal) modal.style.display = "none";
 };
+
 
 
 
