@@ -195,7 +195,7 @@ function renderGroups() {
         div.style = "display:flex; justify-content:space-between; background:rgba(255,255,255,0.05); padding:10px; margin-bottom:8px; border-radius:8px; align-items:center;";
         div.innerHTML = `<div><strong>${g.name}</strong><br><small>${g.data.length} registros</small></div>
             <div>
-                <button onclick="loadAsRegister(${g.id})" style="background:#6366f1; color:white; padding:5px 8px; font-size:11px;">Registro</button>
+                <button onclick="loadAsRegister(${g.id})" style="background:#6366f1; color:white; padding:5px; font-size:12px;">Registro</button>
                 <button onclick="loadGroup(${g.id})" style="background:#22c55e; color:white; padding:5px; font-size:12px;">Cargar</button>
                 <button onclick="deleteGroup(${g.id})" style="background:#ef4444; color:white; padding:5px; font-size:12px;">X</button>
             </div>`;
@@ -315,4 +315,5 @@ window.addEventListener('DOMContentLoaded', () => {
     loadDomains();
     loadFormat();
     if (localStorage.getItem('theme') === 'light') { document.body.classList.add('light-mode'); themeSwitch.checked = true; }
+
 });
