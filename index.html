@@ -39,7 +39,7 @@
     <div class="row" style="margin-bottom:12px">
       <div style="flex:1; min-width:180px">
         <label for="word">(ej. prueba, usuario, test)</label>
-        <input id="word" type="text" placeholder="ej: prueba" value="test" />
+        <input id="word" type="text" placeholder="ej: prueba"/>
       </div>
 
       <div style="flex:1; min-width:180px">
@@ -94,16 +94,32 @@
       </div>
     </div>
 
-    <!-- ===== CONTROLES INFERIORES ===== -->
-    <div class="row" style="justify-content:space-between; margin-top:12px;">
-      <div class="controls" style="gap:10px">
-        <button id="exportExcel" class="btn-export">Exportar</button>
-        <button id="clearList" class="btn-clear">Limpiar</button>
-      </div>
-      <div>
-        <button id="generate">Generar</button>
-      </div>
+
+ <!-- ===== CONTROLES INFERIORES ===== -->
+
+  <div class="row" style="justify-content:space-between; margin-top:12px;">
+  <div class="controls" style="gap:10px">
+    <button id="exportExcel" class="btn-export">Exportar</button>
+    <button id="clearList" class="btn-clear">Limpiar</button>
+    <button id="openGroups" style="background:#6366f1; color:white;">Grupos</button> </div>
+  <div>
+    <button id="generate">Generar</button>
+  </div>
+</div>
+
+<div id="groupsModal" class="modal">
+  <div class="modal-content">
+    <span id="closeGroups" class="close">&times;</span>
+    <h2>Grupos Guardados</h2>
+    <div id="groupsContainer">
+      <p style="text-align:center; color:var(--muted);">No hay grupos guardados.</p>
     </div>
+    <div style="margin-top: 20px; border-top: 1px solid #444; padding-top: 15px;">
+        <input id="groupName" type="text" placeholder="Nombre del grupo">
+        <button id="saveCurrentGroup" style="width:100%; background:#22c55e; color:white; margin-top:10px;">Guardar tabla actual como grupo</button>
+    </div>
+  </div>
+</div>
 
     <!-- ===== TABLA RESULTADOS ===== -->
     <table id="resultList">

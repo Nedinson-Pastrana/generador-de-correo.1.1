@@ -443,3 +443,36 @@ body.light-mode .country-table td {
 }
 
 
+
+
+
+
+/* 16.12.2025 */
+
+.group-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.light-mode .group-item {
+  background: #f9f9f9;
+  border-color: #ddd;
+}
+
+.group-info {
+  flex: 1;
+}
+
+.group-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.btn-load { background: #22c55e; color: white; min-width: 60px; font-size: 12px; }
+.btn-delete { background: #ef4444; color: white; min-width: 60px; font-size: 12px; }
