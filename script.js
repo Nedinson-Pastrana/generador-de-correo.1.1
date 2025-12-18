@@ -195,6 +195,7 @@ function renderGroups() {
         div.style = "display:flex; justify-content:space-between; background:rgba(255,255,255,0.05); padding:10px; margin-bottom:8px; border-radius:8px; align-items:center;";
         div.innerHTML = `<div><strong>${g.name}</strong><br><small>${g.data.length} registros</small></div>
             <div>
+                <button onclick="loadAsRegister(${g.id})" style="background:#6366f1; color:white; padding:5px 8px; font-size:11px;">Registro</button>
                 <button onclick="loadGroup(${g.id})" style="background:#22c55e; color:white; padding:5px; font-size:12px;">Cargar</button>
                 <button onclick="deleteGroup(${g.id})" style="background:#ef4444; color:white; padding:5px; font-size:12px;">X</button>
             </div>`;
@@ -202,28 +203,21 @@ function renderGroups() {
     });
 }
 
-// window.loadGroup = (id) => {
-//     const groups = JSON.parse(localStorage.getItem(STORAGE_KEYS.groups) || '[]');
-//     const group = groups.find(g => g.id === id);
-//     if (group) {
-//         const usedNumbersLoad = new Set();
-//         const updatedLeads = group.data.map(item => {
-//             let newPhone = item.phone;
-//             if (item.phone && item.phone.length > 2) {
-//                 let lastTwo;
-//                 do { lastTwo = Math.floor(Math.random() * 100).toString().padStart(2, '0'); } while (usedNumbersLoad.has(lastTwo));
-//                 usedNumbersLoad.add(lastTwo);
-//                 newPhone = item.phone.slice(0, -2) + lastTwo;
-//             }
-//             return { ...item, name: generarNombreCompleto(), phone: newPhone };
-//         });
-//         generatedByWord = { [group.name]: updatedLeads };
-//         orderList = [group.name];
-//         renderAll();
-//         groupsModal.style.display = 'none';
-//         Notiflix.Notify.success(`Cargado: ${group.name} con nuevos datos`);
-//     }
-// };
+// carga los grupos sin cambios
+window.loadAsRegister = (id) => {
+    const groups = JSON.parse(localStorage.getItem(STORAGE_KEYS.groups) || '[]');
+    const group = groups.find(g => g.id === id);
+    
+    if (group) {
+        // Asignamos la data directamente sin aplicar lógica de aleatoriedad
+        generatedByWord = { [group.name]: [...group.data] };
+        orderList = [group.name];
+        
+        renderAll(); // Refresca la tabla principal
+        groupsModal.style.display = 'none'; // Cierra el modal
+        Notiflix.Notify.info(`Registro "${group.name}" cargado sin cambios`);
+    }
+};
 
 window.loadGroup = (id) => {
     const groups = JSON.parse(localStorage.getItem(STORAGE_KEYS.groups) || '[]');
